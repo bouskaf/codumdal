@@ -1,7 +1,7 @@
 <template>
   <nav>
       <ul class="header-ul">
-          <li><router-link to="/" exact>Recepty</router-link></li>
+          <li><router-link to="/recepty/vse" exact>Recepty</router-link></li>
           <li><router-link to="/kategorie" exact>Kategorie</router-link></li>
           <li><router-link to="/add" exact>Přidat recept</router-link></li>
       </ul>

@@ -23,17 +23,18 @@
             <select v-model="recipe.author">
                 <option v-for="author in authors">{{ author }}</option>
             </select> -->
-            <button v-on:click.prevent="post" class="btn-add">přidat recept</button>
+            <b-button variant="info" v-on:click.prevent="post" class="btn-add">přidat recept</b-button>
         </form>
         <div v-if="submited">
             <h3>Tvůj nový recept byl vložen :)</h3>
-            <button class="btn-add"><router-link v-bind:to="'/recept/' + this.recipeId">zobrazit recept</router-link></button>
+            <b-button variant="info" class="btn-add"><router-link v-bind:to="'/recept/' + this.recipe.id">zobrazit recept</router-link></b-button>
         </div>
     </div>
 </template>
 
 <script>
 // Imports
+import firebase from '../firebase'
 
 // Exports
 export default {
@@ -45,17 +46,23 @@ export default {
                     directions: "",
                     categories: [],
                 },
-                submited: false,
-                recipeId: ''
+                submited: false
         }
     },
     methods: {
-        post: function() {
-            this.$http.post('https://codumdal-a40a5.firebaseio.com/recipes.json', this.recipe).then(function(data){
+        post: function(){
+            firebase.firestore().collection('recipes').add(this.recipe).then((data) => {
                 this.submited = true;
-                this.recipeId = data.body.name;
-            });
+                this.recipe.id = data.id;
+            })
         }
+
+        // post: function() {
+        //     this.$http.post('https://codumdal-a40a5.firebaseio.com/recipes.json', this.recipe).then(function(data){
+        //         this.submited = true;
+        //         this.recipeId = data.body.name;
+        //     });
+        // }
     }
 }
 </script>
@@ -91,12 +98,19 @@ h3{
     margin-top: 10px;
 }
 .btn-add{
-    background: rgb(109, 163, 159);
+    // background: rgb(109, 163, 159);
     margin: 20px auto 0;
     display: block;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    font-size: 15px;
+    // padding: 10px 20px;
+    // border: none;
+    // cursor: pointer;
+    // font-size: 15px;
+    a {
+        text-decoration: none;
+        color: white;
+    }
 }
+// .btn a:active {
+//     text-decoration: none;
+// }
 </style>

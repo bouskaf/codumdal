@@ -12,6 +12,7 @@
 
 <script>
 // Imports
+import firebase from '../firebase'
 
 // Exports
 export default {
@@ -26,12 +27,17 @@ export default {
     
   },
   created() {
-        this.$http.get('https://codumdal-a40a5.firebaseio.com/recipes/' + this.id + '.json').then(function(data){
-            return data.json();
-        }).then(function(data){
-            this.recipe = data;
-        })
-    }
+      firebase.firestore().collection('recipes').doc(this.id).get().then((doc) => {
+        this.recipe = doc.data();
+      });
+  }
+//   created() {
+//         this.$http.get('https://codumdal-a40a5.firebaseio.com/recipes/' + this.id + '.json').then(function(data){
+//             return data.json();
+//         }).then(function(data){
+//             this.recipe = data;
+//         })
+//     }
 }
 </script>
 

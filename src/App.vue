@@ -12,7 +12,6 @@ import listRecipes from './components/listRecipes'
 import addRecipe from './components/addRecipe'
 import singleRecipe from './components/singleRecipe'
 import categories from './components/categories'
-import soups from './components/categories/soups'
 
 // Exports
 export default {
@@ -21,8 +20,7 @@ export default {
     'list-recipes': listRecipes,
     'add-recipe': addRecipe,
     'single-recipe': singleRecipe,
-    'categories': categories,
-    'soups': soups,
+    'categories': categories
   },
   data() {
     return {

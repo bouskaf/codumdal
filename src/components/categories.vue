@@ -1,10 +1,8 @@
 <template>
     <div id="categories">
-        <router-link to="/predkrmy" exact><div><p>Předkrmy</p></div></router-link>
-        <router-link to="/polevky" exact><div><p>Polévky</p></div></router-link>
-        <router-link to="/hlavnijidla" exact><div><p>Hlavní jídla</p></div></router-link>
-        <router-link to="/dezerty" exact><div><p>Dezerty</p></div></router-link>
-        <router-link to="/napoje" exact><div><p>Nápoje</p></div></router-link>
+        <div v-for="item in myCategories">
+            <router-link :to="item.route" exact><div v-on:click="passData(item)"><p>{{ item.category }}</p></div></router-link>
+        </div>
     </div>
 </template>
 
@@ -16,11 +14,39 @@ export default {
     
     data() {
         return {
-
+            myCategories: [
+                {
+                    category: 'Předkrmy',
+                    route: '/recepty/predkrmy',
+                    id: 'Předkrm'
+                },
+                {
+                    category: 'Polévky',
+                    route: '/recepty/polevky',
+                    id: 'Polévka'
+                },
+                {
+                    category: 'Hlavní jídla',
+                    route: '/recepty/hlavnijidla',
+                    id: 'Hlavní jídlo'
+                },
+                {
+                    category: 'Dezerty',
+                    route: '/recepty/dezerty',
+                    id: 'Dezert'
+                },
+                {
+                    category: 'Nápoje',
+                    route: '/recepty/napoje',
+                    id: 'Nápoj'
+                },
+            ]
         }
     },
     methods: {
-
+        passData: function(item){
+            this.$emit('passData', item )
+        }
     }
 }
 </script>
@@ -38,10 +64,18 @@ export default {
         margin: 20px;
         display: table;
         text-align: center;
+        opacity: 0.8;
     }
     a {
         text-decoration: none;
+        background: transparent;
         color: black;
+    }
+}
+#categories div:hover {
+    opacity: 1;
+    p {
+        font-size: 26px;
     }
 }
 div p {
